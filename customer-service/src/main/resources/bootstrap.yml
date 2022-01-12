@@ -6,8 +6,3 @@ spring:
       uri: http://localhost:8081
       username: root
       password: s3cr3t
-application:
-  endpoints:
-    url:
-      valid_movement: http://localhost:9005
-      valid_product: http://localhost:9003
