@@ -1,0 +1,13 @@
+server:
+  port: 9000
+  error:
+    include-message: always
+    include-binding-errors: always
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://nttdata-admin:NCZ6V3pnN_QB9V.@bootcamp-nttdata-001.0qsps.mongodb.net/bootcamp
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8099/eureka/

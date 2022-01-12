@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @Slf4j
-@RequestMapping(path ="${v1API}/product")
 public class ProductController {
 
     @Autowired
