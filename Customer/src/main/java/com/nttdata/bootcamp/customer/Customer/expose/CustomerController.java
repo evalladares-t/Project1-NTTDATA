@@ -2,6 +2,8 @@ package com.nttdata.bootcamp.customer.Customer.expose;
 
 import com.nttdata.bootcamp.customer.Customer.bussiness.CustomerService;
 import com.nttdata.bootcamp.customer.Customer.model.Customer;
+import com.nttdata.bootcamp.customer.Customer.model.dto.RegisterMovementDTO;
+import com.nttdata.bootcamp.customer.Customer.model.dto.RegisterProductoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,7 @@ public class CustomerController {
     //Create
     @PostMapping()
     public Mono<ResponseEntity<Flux<Customer>>> create(@RequestBody Customer customer){
+        log.info("Create>>>>>");
         return Mono.just(ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(customerService.create(customer)));
@@ -51,7 +54,7 @@ public class CustomerController {
                 .flatMap(productUpdate -> Mono.just(ResponseEntity.ok(productUpdate)))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
-
+    //Delete
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Customer>> delete(@PathVariable("id") String id) {
         log.info("delete>>>>>");
@@ -60,4 +63,21 @@ public class CustomerController {
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
+    //Register Product
+    @PostMapping("/product")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<ResponseEntity<Mono<Customer>>> registerProduct(@RequestBody RegisterProductoDTO objRegister){
+        return Mono.just(ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(customerService.registerProduct(objRegister)));
+    }
+
+    //Register Movement
+    @PostMapping("/movement")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<ResponseEntity<Mono<Customer>>> registerMovement(@RequestBody RegisterMovementDTO objMovement){
+        return Mono.just(ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(customerService.registerMovement(objMovement)));
+    }
 }

@@ -1,4 +1,4 @@
-package com.nttdata.bootcamp.product.Product.model;
+package com.nttdata.bootcamp.customer.Customer.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,8 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,14 +16,24 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-@Document(collection = "product")
-public class Product {
+public class ProductDTO {
+
     @Id
     private String id = UUID.randomUUID().toString();
     private String typeProduct;
     private String name;
     private Float commission;
     private Integer maxMovements;
+    private Integer restMovements;
     private Integer dateAction;
     private Boolean active;
+    private Float totalAmount;
+    private Float totalCommission;
+    private Float totalCredit;
+    private Float restCredit;
+    private List<MovementDTO> movement = new ArrayList<>();
+
+    public void addMovement(MovementDTO m) {
+        this.movement.add(m);
+    }
 }

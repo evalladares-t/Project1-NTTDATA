@@ -39,6 +39,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public Mono<Product> show(@PathVariable("id") String id) {
         log.info("byId>>>>>");
+        System.out.println(id);
         return productService.findById(id);
     }
 
