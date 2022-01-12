@@ -21,7 +21,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     //list
-    @GetMapping()
+    @GetMapping("")
     public Mono<ResponseEntity<Flux<Customer>>> findAll() {
         log.info("findAll>>>>>");
         return Mono.just(ResponseEntity.ok()
@@ -30,19 +30,12 @@ public class CustomerController {
     }
 
     //Create
-    @PostMapping()
+    @PostMapping("")
     public Mono<ResponseEntity<Flux<Customer>>> create(@RequestBody Customer customer){
         log.info("Create>>>>>");
         return Mono.just(ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(customerService.create(customer)));
-    }
-
-    //Detail
-    @GetMapping("/{id}")
-    public Mono<Customer> show(@PathVariable("id") String id) {
-        log.info("byId>>>>>");
-        return customerService.findById(id);
     }
 
     //Edit
@@ -51,14 +44,6 @@ public class CustomerController {
         log.info("update>>>>>");
         return customerService.update(customer)
                 .flatMap(productUpdate -> Mono.just(ResponseEntity.ok(productUpdate)))
-                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
-    }
-    //Delete
-    @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Customer>> delete(@PathVariable("id") String id) {
-        log.info("delete>>>>>");
-        return customerService.remove(id)
-                .flatMap(customer -> Mono.just(ResponseEntity.ok(customer)))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
@@ -78,5 +63,22 @@ public class CustomerController {
         return Mono.just(ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(customerService.registerMovement(objMovement)));
+    }
+
+    //Detail
+    @GetMapping("/{id}")
+    public Mono<Customer> show(@PathVariable("id") String id) {
+        log.info("byId>>>>>");
+        System.out.println(id);
+        return customerService.findById(id);
+    }
+
+    //Delete
+    @DeleteMapping("/{id}")
+    public Mono<ResponseEntity<Customer>> delete(@PathVariable("id") String id) {
+        log.info("delete>>>>>");
+        return customerService.remove(id)
+                .flatMap(customer -> Mono.just(ResponseEntity.ok(customer)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 }
