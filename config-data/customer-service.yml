@@ -11,3 +11,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8099/eureka/
+
+application:
+  endpoints:
+    url:
+      valid_movement: http://movement-service
+      valid_product: http://product-service
